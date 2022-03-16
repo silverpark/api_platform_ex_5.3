@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    # network_mode: "host"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: api
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-nopassword}
+    ports:
+      - "8080:80"
+
+  mysql:
+    image: percona:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-nopassword}
+      - MYSQL_DATABASE=api
+      - MYSQL_USER=api
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nopassword}
+    volumes:
+      - /home/dev/Projects/data/mysql-data-project-api:/var/lib/mysql:rw
+      # you may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/mysql/data:/var/lib/mysql:rw,delegated
+    ports:
+      - "3306:3306"

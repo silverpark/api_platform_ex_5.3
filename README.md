@@ -1,6 +1,8 @@
 # api platform
 
 ## installation
+
+[Install project symfony](https://stackoverflow.com/questions/25749655/how-do-i-create-a-project-based-on-a-specific-version-of-symfony-using-composer#27766284)
 install symfony project
 symfony new --webapp sf_project
 

@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Invoice;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class InvoiceIncrementationController
+class InvoiceIncrementationController extends AbstractController
 {
     private $manager;
 

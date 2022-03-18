@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -16,6 +17,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ApiResource(
  *  collectionOperations={"GET"={"path":"/customers"},"POST"},
  *  itemOperations={"GET"={"path":"/customers/{id}"},"PUT","DELETE"},
+ *  subresourceOperations={
+ *      "invoices_get_subresource"={"path":"/customers/{id}/facts"}
+ *  },
  *  attributes={"pagination_items_per_page":90},
  *  normalizationContext={
  *      "groups"={"customers_read"}
@@ -62,6 +66,7 @@ class Customer
     /**
      * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="customer")
      * @Groups({"customers_read","users_read"})
+     * @ApiSubresource()
      */
     private $invoices;
 

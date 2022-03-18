@@ -10,9 +10,15 @@ use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ApiResource(attributes={"pagination_items_per_page":2})
+ * @ApiResource(
+ *  attributes={"pagination_items_per_page":2},
+ *  normalizationContext={
+ *      "groups"={"customers_read"}
+ *  }
+ * )
  * @ApiFilter(SearchFilter::class, properties={"firstName":"partial","lastName":"partial","company"})
  * @ApiFilter(OrderFilter::class, properties={"firstName", "lastName"})
  * @ORM\Entity
@@ -23,26 +29,31 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"customers_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"customers_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"customers_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"customers_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"customers_read"})
      */
     private $company;
 

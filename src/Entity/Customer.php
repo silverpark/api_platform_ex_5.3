@@ -41,25 +41,25 @@ class Customer
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"customers_read","invoices_read","users_read"})
+     * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
      */
     private $company;
 

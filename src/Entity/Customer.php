@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *  attributes={"pagination_items_per_page":2},
+ *  attributes={"pagination_items_per_page":90},
  *  normalizationContext={
  *      "groups"={"customers_read"}
  *  }
@@ -29,37 +29,37 @@ class Customer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"customers_read","invoices_read"})
+     * @Groups({"customers_read","invoices_read","users_read"})
      */
     private $company;
 
     /**
      * @ORM\OneToMany(targetEntity=Invoice::class, mappedBy="customer")
-     * @Groups({"customers_read"})
+     * @Groups({"customers_read","users_read"})
      */
     private $invoices;
 

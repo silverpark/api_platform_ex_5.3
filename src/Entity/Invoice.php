@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\InvoiceIncrementationController;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,6 +15,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "normalization_context"={"groups"={"invoices_subresource"}}
  *      }
  *  },
+ *  itemOperations={"GET","PUT","DELETE","increment"={
+ *      "method"="post",
+ *      "path"="/invoices/{id}/increment",
+ *      "controller"=InvoiceIncrementationController::class,
+ *      "openapi_context"={
+ *          "summary"="Increment the chrono",
+ *          "description"="Increment the chrono of a specific fact"
+ *      }
+ *  }},
  *  normalizationContext={"groups"={"invoices_read"}}
  * )
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)

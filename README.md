@@ -62,3 +62,7 @@ php bin/console doctrine:migrations:migrate
 
 Launch fixtures in src/DataFixtures/AppFixtures.php
 bin/console doctrine:fixtures:load --no-interaction
+
+### API Rest
+
+install postman with account dan.boetsch@gmail.com to recover collections

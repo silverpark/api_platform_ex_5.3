@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\InvoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -24,7 +25,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          "description"="Increment the chrono of a specific fact"
  *      }
  *  }},
- *  normalizationContext={"groups"={"invoices_read"}}
+ *  normalizationContext={"groups"={"invoices_read"}},
+ *  denormalizationContext={"disable_type_enforcement"=true}
  * )
  * @ORM\Entity(repositoryClass=InvoiceRepository::class)
  */
@@ -41,30 +43,39 @@ class Invoice
     /**
      * @ORM\Column(type="float")
      * @Groups({"invoices_read","customers_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      */
     private $amount;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"invoices_read","customers_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(allowNull=true)
+     * @Assert\Type("\DateTimeInterface")
      */
     private $sentAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"invoices_read","customers_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices={"SENT","PAID","CANCELLED"},message="Your choices must be SENT, PAID or CANCELLED")
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=Customer::class, inversedBy="invoices")
      * @Groups({"invoices_read","invoices_subresource"})
+     * @Assert\NotBlank()
      */
     private $customer;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"invoices_read","customers_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(allowNull=true)
+     * @Assert\Type("integer")
      */
     private $chrono;
 
@@ -78,7 +89,9 @@ class Invoice
         return $this->amount;
     }
 
-    public function setAmount(float $amount): self
+    // here we disable type hinting because we manage type with assert
+    // and we disable "disable_type_enforcement" for this
+    public function setAmount($amount): self
     {
         $this->amount = $amount;
 
@@ -126,7 +139,9 @@ class Invoice
         return $this->chrono;
     }
 
-    public function setChrono(int $chrono): self
+    // here we disable type hinting because we manage type with assert
+    // and we disable "disable_type_enforcement" for this
+    public function setChrono($chrono): self
     {
         $this->chrono = $chrono;
 

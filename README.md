@@ -81,3 +81,23 @@ Athentication needed for get and post on resources, you need to add authenticati
 ### Doctrine collection and item on user restriction
 
 For test it, add ROLE_ADMIN in column role of your user
+
+### Adding automatic token postman environment
+
+For exemple, when you login and you receive :
+```
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2NDc4Nzc4NzksImV4cCI6MTY0NzkxMzg3OSwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiam9obi5kb2UrMDFAYXBpLmNvbSIsImxhc3ROYW1lIjoiZG9lIn0.RvXuSKbXK4tsSLhwhXnjcOcY8GcmYWbw_B_V0iVKKc2r3i7a5b2HFj_fR32_2RM6jQE80umB5u8zWkGq8bRA5c-jSSTl9-93dqQeGwCKMix-QOBKCWofl4HqQHr-lqWSMiMJ10qQexJ8ICEk8XleC79i7m5ZFFi5G09zeT11A0YD0tW2LjbzxpZAxT0-HMda5zBVIf0jhJtwupVcfvHT27ieHMeMpbcLyW1wANzs9p4yeHDK7SxjISoyZgQFPWISRBcLvSZU7-_oNCFI5v27pvHHNX3yI_k2ZARyianqMS-TxOs2wPRcGFbch-EwQ30VvuKYQBZ1lFiU1sl42OIFLQ"
+}
+```
+
+Add in test tab of your http request :
+```
+var jsonData = pm.response.json();
+pm.environment.set("authToken", jsonData.token);
+```
+
+And in authorization bearer token you can add
+```
+{{authToken}}
+```

@@ -77,3 +77,7 @@ Info about jwt [here](https://jwt.io/#apiplatform)
 Add jwt [here](https://api-platform.com/docs/core/jwt/#jwt-authentication)
 
 Athentication needed for get and post on resources, you need to add authentication bearer token
+
+### Doctrine collection and item on user restriction
+
+For test it, add ROLE_ADMIN in column role of your user

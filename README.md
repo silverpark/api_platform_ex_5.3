@@ -71,3 +71,9 @@ install postman with account dan.boetsch@gmail.com to recover collections
 
 Look this [here](https://symfony.com/doc/current/reference/constraints.html#apiplatform)
 
+### Configure api access jwt
+
+Info about jwt [here](https://jwt.io/#apiplatform)
+Add jwt [here](https://api-platform.com/docs/core/jwt/#jwt-authentication)
+
+Athentication needed for get and post on resources, you need to add authentication bearer token

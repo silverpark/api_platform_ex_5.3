@@ -21,6 +21,11 @@ security:
                 check_path: /api/login_check # or api_login_check as defined in config/routes.yaml
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
+        # registration:
+        #     pattern: ^/api/users
+        #     stateless: true
+        #     security: false
+        #     methods: [POST]
         api:
             pattern:   ^/api
             stateless: true
@@ -45,8 +50,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/login,      roles: IS_AUTHENTICATED_ANONYMOUSLY                                 }
+        - { path: ^/api/customers,  roles: IS_AUTHENTICATED_FULLY                                       }
+        - { path: ^/api/invoices,   roles: IS_AUTHENTICATED_FULLY                                       }
+        - { path: ^/api/users,      roles: IS_AUTHENTICATED_FULLY,          methods: [GET,PUT,DELETE]   }
 
 when@test:
     security:

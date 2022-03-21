@@ -52,7 +52,7 @@ class Invoice
      * @ORM\Column(type="datetime")
      * @Groups({"invoices_read","customers_read","users_read","invoices_subresource"})
      * @Assert\NotBlank(allowNull=true)
-     * @Assert\Type("\DateTimeInterface")
+     * @Assert\Type(type="\DateTimeInterface", message="The format must be YYYY-mm-dd H:i:s")
      */
     private $sentAt;
 
@@ -103,7 +103,7 @@ class Invoice
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTimeInterface $sentAt): self
+    public function setSentAt($sentAt): self
     {
         $this->sentAt = $sentAt;
 

@@ -37,3 +37,8 @@ services:
     #     tags: ['controller.service_arguments']
 
     # OR controller extends AbstractController
+
+    ## custom here:
+
+    App\Serializer\PatchDateTimeNormalizer:
+        tags: ['serializer.normalizer']

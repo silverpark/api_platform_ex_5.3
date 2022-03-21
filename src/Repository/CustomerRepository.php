@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Customer;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -43,6 +44,20 @@ class CustomerRepository extends ServiceEntityRepository
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    public function findCustomerByUser(Customer $customer, User $user): ?Customer
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.userCustomer', 'u')
+            ->where('c = :customer')
+            ->andWhere('u = :user')
+            ->setParameter('customer', $customer)
+            ->setParameter('user', $user)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
 
     // /**

@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
@@ -42,24 +43,35 @@ class Customer
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(message="The last name is mandatory")
+     * @Assert\Length(
+     *  min=3,
+     *  max=50,
+     *  minMessage="Your first name must be at least {{ limit }} characters long",
+     *  maxMessage="Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(message="The last name is mandatory")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(message="The last name is mandatory")
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Groups({"customers_read","invoices_read","users_read","invoices_subresource"})
+     * @Assert\NotBlank(allowNull=true)
      */
     private $company;
 
@@ -73,6 +85,7 @@ class Customer
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="customers")
      * @Groups({"customers_read","invoices_read"})
+     * @Assert\NotBlank()
      */
     private $userCustomer;
 

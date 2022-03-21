@@ -66,3 +66,8 @@ bin/console doctrine:fixtures:load --no-interaction
 ### API Rest
 
 install postman with account dan.boetsch@gmail.com to recover collections
+
+### Validation constraints reference
+
+Look this [here](https://symfony.com/doc/current/reference/constraints.html#apiplatform)
+

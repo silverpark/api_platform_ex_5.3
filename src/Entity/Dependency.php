@@ -6,11 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Ramsey\Uuid\Uuid as UuidUuid;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
  *  collectionOperations={"GET","POST"},
- *  itemOperations={"GET","PUT","DELETE"},
+ *  itemOperations={"GET","PUT"={"denormalization_context"={"groups"={"dependency_put_write"}}},"DELETE"},
  *  paginationEnabled=false
  * )
  */
@@ -18,7 +19,6 @@ class Dependency
 {
     /**
      * @ApiProperty(identifier=true)
-     *
      * @var string
      */
     protected string $uuid;
@@ -33,6 +33,7 @@ class Dependency
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min=3)
+     * @Groups({"dependency_put_write"})
      * @var string
      */
     protected string $version;
@@ -89,6 +90,20 @@ class Dependency
     public function setVersion(string $version)
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of name
+     *
+     * @param  string  $name
+     *
+     * @return  self
+     */ 
+    public function setName(string $name)
+    {
+        $this->name = $name;
 
         return $this;
     }

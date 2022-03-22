@@ -4,11 +4,13 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Ramsey\Uuid\Uuid as UuidUuid;
 
 /**
  * @ApiResource(
- *  collectionOperations={"GET","POST"},
- *  itemOperations={"GET","PUT","DELETE"}
+ *  collectionOperations={"GET"},
+ *  itemOperations={"GET"},
+ *  paginationEnabled=false
  * )
  */
 class Dependency
@@ -21,27 +23,22 @@ class Dependency
     protected string $uuid;
 
     /**
-     * @ApiProperty(identifier=true)
-     *
      * @var string
      */
     protected string $name;
 
     /**
-     * @ApiProperty(identifier=true)
-     *
      * @var string
      */
     protected string $version;
 
     /**
-     * @param string $uuid
      * @param string $name
      * @param string $version
      */
-    public function __construct(string $uuid, string $name, string $version)
+    public function __construct(string $name, string $version)
     {
-        $this->uuid = $uuid;
+        $this->uuid = UuidUuid::uuid5(UuidUuid::NAMESPACE_URL, $name)->toString();
         $this->name = $name;
         $this->version = $version;
     }

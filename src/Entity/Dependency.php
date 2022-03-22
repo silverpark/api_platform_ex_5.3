@@ -5,11 +5,12 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Ramsey\Uuid\Uuid as UuidUuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *  collectionOperations={"GET"},
- *  itemOperations={"GET"},
+ *  collectionOperations={"GET","POST"},
+ *  itemOperations={"GET","PUT","DELETE"},
  *  paginationEnabled=false
  * )
  */
@@ -23,11 +24,15 @@ class Dependency
     protected string $uuid;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      * @var string
      */
     protected string $name;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=3)
      * @var string
      */
     protected string $version;
@@ -71,5 +76,20 @@ class Dependency
     public function getVersion()
     {
         return $this->version;
+    }
+
+    /**
+     * Set the value of version
+     * This setter is mandotary in the case of persist data in PUT
+     *
+     * @param  string  $version
+     *
+     * @return  self
+     */ 
+    public function setVersion(string $version)
+    {
+        $this->version = $version;
+
+        return $this;
     }
 }

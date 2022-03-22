@@ -57,4 +57,25 @@ class DependencyRepository
 
         return $contentDecoded;
     }
+
+    public function saveDependency(Dependency $data): void
+    {
+        $path = $this->rootPath . '/composer.json';
+        $content = file_get_contents($path);
+        $contentDecoded = json_decode($content, true);
+        $contentDecoded['require'][$data->getName()] = $data->getVersion();
+
+        file_put_contents($path, json_encode($contentDecoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    }
+
+    public function removeDependency(Dependency $data): void
+    {
+        $path = $this->rootPath . '/composer.json';
+        $content = file_get_contents($path);
+        $contentDecoded = json_decode($content, true);
+    
+        unset($contentDecoded['require'][$data->getName()]);
+
+        file_put_contents($path, json_encode($contentDecoded, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    }
 }
